@@ -30,5 +30,10 @@ cd iit-hyderabad-social-media-app
 ```bash
 npm install
 ```
+### Set Up .env file
+### Start the server 
+```bash
+npm start
+```
 
 
