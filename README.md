@@ -35,5 +35,36 @@ npm install
 ```bash
 npm start
 ```
+## Usage
+
+### 1. **Login**
+
+- Open the application in your browser.
+- On the login page, enter your IIT Hyderabad email ID.
+- Click the **"Login"** button to authenticate. Ensure your email ID is registered with the application.
+
+### 2. **Sort Students**
+
+- **By Degree**:
+  - From the home page, select a degree (B.Tech, M.Tech, PhD) from the dropdown or filter options.
+- **By Branch**:
+  - After selecting a degree, choose a branch from the available options.
+- **By Batch**:
+  - Within the selected branch, filter students by batch to view the specific students.
+- **By Hostel**:
+  - Alternatively, select a hostel to see students from that specific hostel.
+
+### 3. **View and Chat with Peers**
+
+- **View Students**:
+  - Browse the list of students based on the selected filters (degree, branch, batch, or hostel).
+- **Chat**:
+  - Click on a student's profile or name to start a chat.
+  - Use the chat interface to send and receive messages in real-time. The chat feature utilizes Socket.io for instant communication.
+
+### 4. **Logout**
+
+- To log out, navigate to the logout option in the navigation bar or menu.
+- Confirm logout to end your session and return to the login page.
 
 
