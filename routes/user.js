@@ -4,10 +4,12 @@ import { login, signup, verifyOtpAndSaveUser,verifyOtp, logout } from '../contro
 const router = express.Router();
 
 router.get("/signup",(req,res)=>{
-    res.render("../views/user/signup.ejs")
+    const token = req.cookies.token
+    res.render("../views/user/signup.ejs",{token})
 })
 router.get("/login",(req,res)=>{
-    res.render("../views/user/login.ejs")
+    const token = req.cookies.token
+    res.render("../views/user/login.ejs",{token})
 })
 router.get("/logout",logout)
 router.post('/signup', signup);

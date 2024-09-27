@@ -20,10 +20,12 @@ export const getChatPage = async (req, res) => {
         .populate('sender', 'username')
         .sort({ createdAt: 1 });
         
+    const token = req.cookies.token
     res.render('../views/chat/chat.ejs', { 
         conversation, 
         currentUser: req.user, 
         recipient, 
-        messages 
+        messages ,
+        token,
     });
 };

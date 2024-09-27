@@ -30,7 +30,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/sort',sortRoutes)
 app.use("/api/chat",chatRoutes)
 app.get("/",checkToken,(req,res)=>{
-   res.render("../views/home.ejs")
+    const token = req.cookies.token
+   res.render("../views/home.ejs",{token})
 })
 
 socketHandler(io)
@@ -39,3 +40,4 @@ server.listen(process.env.PORT,()=>{
     main()
     console.log(`Server listening on port ${process.env.PORT}`)
 })
+

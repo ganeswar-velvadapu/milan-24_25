@@ -14,15 +14,20 @@
             background-color: #0d6efd; /* Light gray background on hover */
         }
         .list-group-item a {
-            color: #000; /* Default text color */
+            color: black;
             text-decoration: none;
         }
         .list-group-item a:hover {
             color: #d3dcda; /* Blue color for link on hover */
+        }  
+        
+       
+          .card{
+            background-color: rgba(255, 255, 255,0.5);
         }
     </style>
 </head>
-
+<%- include('../partials/navbar.ejs',{token:token}) %>
 <body class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
     <div class="container">
         <div class="card shadow-lg p-4" style="max-width: 500px; margin: auto;">

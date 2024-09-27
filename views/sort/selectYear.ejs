@@ -20,12 +20,20 @@
         .list-group-item a:hover {
             color: #d3dcda; /* Blue color for link on hover */
         }
+        
+        .card{
+          background-color: rgba(255, 255, 255,0.5);
+      }   
+      .custom-container {
+        max-width: 900px; /* Set your desired max width */
+        width: 100%; /* Make it responsive */
+    }
     </style>
 </head>
-<body class="bg-light">
-
+<body >
+  <%- include('../partials/navbar.ejs',{token:token}) %>
   <!-- Main content container -->
-  <div class="container mt-5">
+  <div class="container custom-container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-8">
 

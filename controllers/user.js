@@ -29,9 +29,9 @@ export const signup = async (req, res) => {
         const otp = generateOtp();
         otpStore[email] = { otp, createdAt: Date.now() };  
 
-     
+        const token = req.cookies.token
         await sendOtp(email, otp);
-        res.render("../views/user/otp.ejs");
+        res.render("../views/user/otp.ejs",{token});
 
     } catch (error) {
         console.error(error);
@@ -43,15 +43,15 @@ export const signup = async (req, res) => {
 
 export const verifyOtpAndSaveUser = async (req, res) => {
     const { username, password, degree, isPlaced, hostel,year,branch } = req.body;
+    const newToken = req.cookies.newToken
     try {
-        
-        const token = req.cookies.token
-        if (!token) {
+    
+        if (!newToken) {
             return res.status(401).json({ "message": "No token provided" });
         }
 
  
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(newToken, process.env.JWT_SECRET);
         const email = decoded.email;  
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -74,14 +74,14 @@ export const verifyOtpAndSaveUser = async (req, res) => {
         delete otpStore[email];
 
         
-        res.clearCookie('token');
-        const newToken = jwt.sign(
+        res.clearCookie('newToken');
+        const token = jwt.sign(
             { userId: newUser._id, email: newUser.email },  
             process.env.JWT_SECRET,  
             { expiresIn: '1h' }  
         );  
-        res.cookie("token",newToken,{httpOnly:true})
-        return res.render("../views/home.ejs");
+        res.cookie("token",token,{httpOnly:true})
+        return res.redirect("/");
 
     } catch (error) {
         console.error(error);
@@ -93,7 +93,7 @@ export const verifyOtpAndSaveUser = async (req, res) => {
 
 export const verifyOtp = (req, res) => {
     const { clientOtp, email } = req.body;
-
+    const token = req.cookies.token
     try {
         const otpData = otpStore[email];  
         if (!otpData) {
@@ -115,17 +115,16 @@ export const verifyOtp = (req, res) => {
         }
 
        
-        const token = jwt.sign(
+        const newToken = jwt.sign(
             { email },
             process.env.JWT_SECRET,  
             { expiresIn: '1h' }
         );
 
-        res.cookie('token', token, {
+        res.cookie('newToken', newToken, {
             httpOnly: true,
         });
-        
-        res.render("../views/user/afterotp.ejs");
+        res.render("../views/user/afterotp.ejs",{token});
         // return res.status(200).json({ "message": "OTP verified", token });
 
     } catch (error) {
@@ -163,6 +162,7 @@ export const login = async (req, res) => {
     try {
         let { email, password } = req.body;
         const user = await User.findOne({ email });
+        
         if (!user) {
             return res.status(404).json({
                 "message": "User not found"
@@ -187,7 +187,7 @@ export const login = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
         });
-        res.render("../views/home.ejs")
+        res.redirect("/")
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -198,8 +198,8 @@ export const login = async (req, res) => {
 
 export const logout = (req,res)=>{
     try {
-        res.clearCookie('newtoken'); 
-        res.render("../views/user/login.ejs");
+        res.clearCookie('token'); 
+        res.render("../views/user/login.ejs",{token:null});
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });

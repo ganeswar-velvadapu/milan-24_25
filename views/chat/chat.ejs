@@ -18,55 +18,80 @@
       crossorigin="anonymous"
     />
     <style>
-      .input-group {
+      #chat-box {
+        height: 500px; 
+        width: 100%; 
+        overflow-y: auto;
         display: flex;
+        flex-direction: column;
+        padding: 15px; 
+        border-radius: 15px;
       }
-
+    
+      .message {
+        max-width: 75%; 
+        margin: 8px 0;
+        padding: 10px;
+        border-radius: 15px;
+        color: white;
+        word-wrap: break-word;
+      }
+    
+      .message-sender {
+        align-self: flex-end; 
+        background-color: #343a40; 
+        border-bottom-right-radius: 0; 
+      }
+    
+      .message-receiver {
+        align-self: flex-start; 
+        background-color: #495057; 
+        border-bottom-left-radius: 0; 
+      }
+    
+      .sender-name {
+        font-size: 0.8rem;
+        color: #ced4da;
+        margin-top: 5px;
+        text-align: right; 
+      }
+    
+      .input-group {
+        margin-top: 15px; 
+      }
+      
       .form-control {
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
-        height: 50px;
+        height: 60px;
       }
-
+    
       #sendButton {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         background-color: #007bff;
         color: white;
         border: none;
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
         cursor: pointer;
-        padding: 0 15px;
-        height: 50px;
-      }
-
-      #sendButton i {
-        font-size: 1.2rem;
-      }
-
-      #sendButton:hover {
-        background-color: #0056b3;
-      }
-
-      #sendButton:active {
-        background-color: #004085;
+        padding: 0 20px;
+        height: 60px; 
       }
     </style>
+    
   </head>
 
   <body>
     <%- include('../partials/navbar.ejs') %>
     <div class="container mt-4">
       <h1>Chat with <%= recipient.username %></h1>
-      <div id="chat-box" class="border rounded p-3 mb-3" style="height: 300px; overflow-y: scroll">
+      <div id="chat-box" class="border rounded p-3 mb-3 d-flex flex-column">
         <% messages.forEach(message => { %>
-          <div>
-            <strong><%= message.sender.username %>:</strong> <%= message.content %>
+          <div class="message <%= message.sender.username === currentUser.username ? 'message-sender' : 'message-receiver' %>">
+            <%= message.content %>
+            <div class="sender-name"><%= message.sender.username === currentUser.username ? 'You' : message.sender.username %></div>
           </div>
         <% }) %>
-      </div>
+      </div>      
       <form action="">
         <div class="input-group">
           <input
@@ -83,7 +108,7 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const conversationId = "<%= conversation._id %>"
+      const conversationId = "<%= conversation._id %>";
       const socket = io();
       socket.emit("joinConversation", conversationId);
 
@@ -101,11 +126,14 @@
       socket.on("receiveMessage", (message) => {
         const chatBox = document.getElementById("chat-box");
         const messageElement = document.createElement("div");
-        messageElement.innerHTML = `<strong>${message.sender}:</strong> ${message.content}`;
+        messageElement.className = `message ${message.sender === "<%= currentUser.username %>" ? "message-sender" : "message-receiver"}`;
+        messageElement.innerHTML = `
+          ${message.content}
+          <div class="sender-name">${message.sender}</div>
+        `;
         chatBox.appendChild(messageElement);
         chatBox.scrollTop = chatBox.scrollHeight;
       });
-      
     </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
