@@ -83,7 +83,7 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        const conversationId = "<%= conversation._id %>"
+      const conversationId = "<%= conversation._id %>"
       const socket = io();
       socket.emit("joinConversation", conversationId);
 

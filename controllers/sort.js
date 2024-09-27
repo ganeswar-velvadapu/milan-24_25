@@ -19,8 +19,9 @@ export const sortByYear = async (req, res) => {
 }
 
 export const studentsList = async (req, res) => {
+    const currentUserId = req.user.id;
     const { degree, branch, year } = req.params;
-    const students = await User.find({ degree, branch, year }).sort({ name: 1 });
+    const students = await User.find({ degree, branch, year,_id: { $ne: currentUserId } }).sort({ name: 1 });
     res.render('../views/sort/studentsList.ejs', { degree, branch, year, students });
 }
 
@@ -36,9 +37,10 @@ export const sortByHostel = async (req, res) => {
 
 export const studentsByHostels = async (req,res)=>{
     try {
+        const currentUserId = req.user.id;
         const { hostel } = req.params;
-        const students = await User.find({ hostel }).sort({ name: 1 });
-        res.render('../views/sort/studentsByHostels.ejs', { hostel, students });
+        const students = await User.find({ hostel,_id: { $ne: currentUserId } }).sort({ name: 1 });
+        res.render('../views/sort/studentsByHostels.ejs', { hostel, students});
     } catch (error) {
         console.log(error);
         res.status(500).send('Error while retrieving students for the selected hostel');

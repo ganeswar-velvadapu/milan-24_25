@@ -8,6 +8,7 @@ import chatRoutes from './routes/message.js'
 import http from 'http'
 import {Server} from 'socket.io'
 import socketHandler from "./controllers/chat.js"
+import checkToken from "./middlewares/checkToken.js"
 
 
 dotenv.config()
@@ -28,6 +29,9 @@ app.use(urlencoded({extended:true}))
 app.use('/api/auth', authRoutes); 
 app.use('/api/sort',sortRoutes)
 app.use("/api/chat",chatRoutes)
+app.get("/",checkToken,(req,res)=>{
+   res.render("../views/home.ejs")
+})
 
 socketHandler(io)
 

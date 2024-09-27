@@ -4,7 +4,7 @@ const checkToken = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        res.render("../views/user/signup.ejs")
+        return res.render("../views/user/signup.ejs")
     }
 
     try {
