@@ -19,5 +19,16 @@ Welcome to the IIT Hyderabad Social Media App! This application is tailored for 
 - **Real-Time Messaging**: Socket.io
 - **Database**: MongoDB (assumed for this example; adjust based on actual usage)
 
+## Installation
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/iit-hyderabad-social-media-app.git
+cd iit-hyderabad-social-media-app
+```
+### Install Dependencies
+```bash
+npm install
+```
 
 
