@@ -13,7 +13,7 @@
             <li>
                 <p><strong>Name:</strong> <%= student.username %></p>
                 <p><strong>Email:</strong> <%= student.email %></p>
-                <i class="fa-solid fa-message"></i>
+                <a href="/api/chat/<%= student._id  %>"><i class="fa-solid fa-message"></i></a>
             </li>
         <% }) %>
     </ul>

@@ -79,7 +79,7 @@ export const verifyOtpAndSaveUser = async (req, res) => {
             { userId: newUser._id, email: newUser.email },  
             process.env.JWT_SECRET,  
             { expiresIn: '1h' }  
-        );
+        );  
         res.cookie("token",newToken,{httpOnly:true})
         return res.render("../views/home.ejs");
 

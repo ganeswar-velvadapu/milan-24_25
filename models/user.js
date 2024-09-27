@@ -40,6 +40,12 @@ const userSchema = new mongoose.Schema({
     type:String,
     required:true
   },
+  conversations: [
+    { type: mongoose.Schema.Types.ObjectId,
+       ref: 'Conversation' 
+    }
+  ],
+
 },{timestamps:true});
 
 const  User = mongoose.model("User",userSchema)
