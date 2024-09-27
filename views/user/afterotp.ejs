@@ -34,16 +34,22 @@
               </div>
               <div class="mb-3">
                 <label for="hostel" class="form-label">Hostel</label>
-                <input type="text" class="form-control" id="hostel" name="hostel">
-              </div>
+                <select class="form-select" id="hostel" name="hostel">
+                  <option value="">Select your hostel</option>
+                  <% hostels.forEach(function(hostel) { %>
+                    <option value="<%= hostel %>"><%= hostel %></option>
+                  <% }) %>
+                </select>
+              </div>              
               <div class="mb-3">
                 <label for="year" class="form-label">Year</label>
-                <input type="text" class="form-control" id="year" name="year">
-              </div>
-              <div class="mb-3">
-                <label for="branch" class="form-label">Branch</label>
-                <input type="text" class="form-control" id="branch" name="branch">
-              </div>
+                <select class="form-select" id="year" name="year">
+                  <option value="">Select Batch</option>
+                  <% year.forEach(function(year) { %>
+                    <option value="<%= year %>"><%= year %></option>
+                  <% }) %>
+                </select>
+              </div>   
               <div class="mb-3">
                 <label for="degree" class="form-label">Degree</label>
                 <select class="form-select" name="degree">
@@ -52,9 +58,23 @@
                   <option value="PhD">PhD</option>
                 </select>
               </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Placed</label>
+              <div class="mb-3">
+                <label for="department" class="form-label">Department</label>
+                <select class="form-select" id="department" name="branch">
+                  <option value="">Select your Department</option>
+                  <% branches.forEach(function(branch) { %>
+                    <option value="<%= branch %>"><%= branch %></option>
+                  <% }) %>
+                </select>
+              </div>    
+              <div class="mb-3">
+                <label for="company" class="form-label">Company you placed In(Optional)</label>
+                <select class="form-select" id="company" name="company">
+                  <option value="">Select Company</option>
+                  <% companies.forEach(function(company) { %>
+                    <option value="<%= company %>"><%= company %></option>
+                  <% }) %>
+                </select>
               </div>
               <button type="submit" class="btn btn-primary w-100">Submit</button>
             </form>

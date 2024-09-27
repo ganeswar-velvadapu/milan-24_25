@@ -29,9 +29,6 @@ const userSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  isPlaced:{
-    type:Boolean,
-  },
   hostel:{
     type:String,
     required:true   
@@ -39,6 +36,9 @@ const userSchema = new mongoose.Schema({
   year:{
     type:String,
     required:true
+  },
+  company:{
+    type:String
   },
   conversations: [
     { type: mongoose.Schema.Types.ObjectId,

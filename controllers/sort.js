@@ -52,3 +52,26 @@ export const studentsByHostels = async (req,res)=>{
         res.status(500).send('Error while retrieving students for the selected hostel');
     }
 }
+
+
+export const sortByPlacements = async  (req,res)=>{
+    const token = req.cookies.token
+    try {
+        const companies = await User.distinct('company');
+        res.render("../views/sort/companylist.ejs",{companies,token})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const studentsByCompany = async (req,res)=>{
+    const token = req.cookies.token
+    try {
+        const {company} = req.params
+        const currentUserId = req.user.id;
+        const students = await User.find({ company,_id: { $ne: currentUserId } }).sort({ name: 1 });
+        res.render("../views/sort/studentsByCompany.ejs",{students,token,company})
+    } catch (error) {
+        console.log(error)
+    }
+}

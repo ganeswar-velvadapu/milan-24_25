@@ -7,26 +7,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .navbar {
-            background-color: #343a40; /* Dark background for the navbar */
+            background-color: #343a40; 
         }
         .navbar-brand {
             font-size: 1.5rem; 
             font-weight: bold; 
-            color: #f8f9fa; /* White color for brand */
+            color: #f8f9fa; 
         }
         .navbar-nav .nav-link {
-            color: #f8f9fa; /* White color for links */
-            margin-right: 1.5rem; /* Spacing between links */
-            transition: color 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
-            border-radius: 5px; /* Rounded corners for links */
-            padding: 0.5rem 1rem; /* Padding around links */
+            color: #f8f9fa; 
+            margin-right: 1.5rem; 
+            transition: color 0.3s, background-color 0.3s; 
+            border-radius: 5px; 
+            padding: 0.5rem 1rem; 
         }
         .navbar-nav .nav-link:hover {
-            color: #ffffff; /* Change text color on hover */
-            background-color: #495057; /* Darker background on hover */
+            color: #ffffff;
+            background-color: #495057;
         }
         .navbar-toggler {
-            border: none; /* Remove border from toggler */
+            border: none; 
         }
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
@@ -39,7 +39,7 @@
            <% if(token) {%>
             <a class="navbar-brand" href="/">Connect</a>
             <% }else{ %>
-                <a class="navbar-brand" href="/api/auth/login   ">Connect</a>
+                <a class="navbar-brand" href="/api/auth/login">Connect</a>
             <% } %>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@
                         <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/api/auth/logout">Log Out</a>
+                        <a class="nav-link" href="/api/auth/logout">Logout</a>
                     </li>
                     <% } else{ %>
                     <li class="nav-item">
