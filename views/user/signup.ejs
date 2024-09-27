@@ -24,9 +24,15 @@
             width: 100%;
             max-width: 500px;
         }
+        body{
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            background-repeat: no-repeat; /* Prevent background repetition */
+            background-attachment: fixed;
+        }
     </style>
 </head>
 <body>
+    <%- include('../partials/alert.ejs',{message:message}) %>
     <%- include('../partials/navbar.ejs',{token:token}) %> <!-- Include the navbar -->
     <div class="container form-container">
         <div class="form-box">

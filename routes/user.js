@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.get("/signup",(req,res)=>{
     const token = req.cookies.token
-    res.render("../views/user/signup.ejs",{token})
+    res.render("../views/user/signup.ejs",{token,message:null})
 })
 router.get("/login",(req,res)=>{
     const token = req.cookies.token
-    res.render("../views/user/login.ejs",{token})
+    res.render("../views/user/login.ejs",{token,message:null})
 })
 router.get("/logout",logout)
 router.post('/signup', signup);

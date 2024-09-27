@@ -4,7 +4,7 @@ const checkToken = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        return res.render("../views/user/signup.ejs")
+        return res.render("../views/user/signup.ejs",{token:null,message:"Please Login or Signup"})
     }
 
     try {
@@ -12,7 +12,7 @@ const checkToken = (req, res, next) => {
         req.user = { id: decoded.userId }; 
         next();
     } catch (err) {
-        return res.status(401).json({ message: 'Failed to authenticate token' });
+        return res.render('../views/user/login.ejs',{token:null,message: "Authentication Failed" });
     }
 };
 

@@ -25,7 +25,8 @@ export const getChatPage = async (req, res) => {
         conversation, 
         currentUser: req.user, 
         recipient, 
-        messages ,
+        messages,
         token,
+        message:null
     });
 };

@@ -4,14 +4,14 @@ import User from "../models/user.js"
 export const sortBydegree = (req, res) => {
     const token = req.cookies.token
     const degrees = ['B.Tech', 'M.Tech', 'PhD'];
-    res.render('../views/sort/degree.ejs', { degrees,token });
+    res.render('../views/sort/degree.ejs', { degrees,token});
 }
 
 export const sortByBranch = async (req, res) => {
     const token = req.cookies.token
     const { degree } = req.params;
     const branches = await User.distinct('branch', { degree });
-    res.render('../views/sort/selectBranch.ejs', { degree, branches,token });
+    res.render('../views/sort/selectBranch.ejs', { degree, branches,token});
 }
 
 export const sortByYear = async (req, res) => {

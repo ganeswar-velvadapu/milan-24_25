@@ -31,7 +31,7 @@ app.use('/api/sort',sortRoutes)
 app.use("/api/chat",chatRoutes)
 app.get("/",checkToken,(req,res)=>{
     const token = req.cookies.token
-   res.render("../views/home.ejs",{token})
+    res.render("../views/home.ejs",{token,message:null})
 })
 
 socketHandler(io)

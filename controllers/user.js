@@ -14,16 +14,16 @@ export const signup = async (req, res) => {
         let { email } = req.body;
 
         if (!email) {
-            return res.status(401).json({ "message": "Enter all the details" });
+            return res.render('../views/user/login.ejs',{token:null,message:"Enter all details"});
         }
 
         if (!validateEmail(email)) {
-            return res.status(401).json({ "message": "Please use a valid IITH email" });
+            return res.render('../views/user/login.ejs',{token:null,message:"Please use a valid IITH email"});
         }
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(409).json({ "message": "User already exists. Please try to login" });
+            return res.render('../views/user/login.ejs',{token:null,message:"User already exists. Please try to login"});
         }
 
         const otp = generateOtp();
@@ -31,11 +31,11 @@ export const signup = async (req, res) => {
 
         const token = req.cookies.token
         await sendOtp(email, otp);
-        res.render("../views/user/otp.ejs",{token});
+        res.render("../views/user/otp.ejs",{token,message:null});
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ "message": "Internal Server Error" });
+        return res.render('../views/user/login.ejs',{token:null,message: "Internal Server Error" });
     }
 };
 
@@ -47,7 +47,7 @@ export const verifyOtpAndSaveUser = async (req, res) => {
     try {
     
         if (!newToken) {
-            return res.status(401).json({ "message": "No token provided" });
+            return res.render('../views/user/login.ejs',{token:null,message: "Internal Server Error" });
         }
 
  
@@ -85,7 +85,7 @@ export const verifyOtpAndSaveUser = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ "message": "Internal Server Error" });
+        return res.render('../views/user/login.ejs',{token:null,message: "Internal Server Error" });
     }
 };
 
@@ -97,7 +97,7 @@ export const verifyOtp = (req, res) => {
     try {
         const otpData = otpStore[email];  
         if (!otpData) {
-            return res.status(400).json({ "message": "No OTP found. Please request a new OTP." });
+            return res.render('../views/user/login.ejs',{token:null,message: "No OTP found. Please request a new OTP." });
         }
 
         const { otp: storedOtp, createdAt } = otpData;
@@ -106,12 +106,12 @@ export const verifyOtp = (req, res) => {
         const otpValidityDuration = 10 * 60 * 1000; 
         if (Date.now() - createdAt > otpValidityDuration) {
             delete otpStore[email];  
-            return res.status(400).json({ "message": "OTP expired. Please request a new OTP." });
+            return res.render('../views/user/login.ejs',{token:null,message: "OTP expired. Please request a new OTP." });
         }
 
         
         if (storedOtp.toString() !== clientOtp.toString()) {
-            return res.status(400).json({ "message": "Invalid OTP. Please try again." });
+            return res.render('../views/user/login.ejs',{token:null,message: "Invalid OTP. Please try again." });
         }
 
        
@@ -124,12 +124,12 @@ export const verifyOtp = (req, res) => {
         res.cookie('newToken', newToken, {
             httpOnly: true,
         });
-        res.render("../views/user/afterotp.ejs",{token});
+        res.render("../views/user/afterotp.ejs",{token,message:null});
         // return res.status(200).json({ "message": "OTP verified", token });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ "message": "Internal Server Error" });
+        return res.render('../views/user/login.ejs',{token:null,message: "Internal Server Error" });
     }
 };
 
@@ -164,16 +164,12 @@ export const login = async (req, res) => {
         const user = await User.findOne({ email });
         
         if (!user) {
-            return res.status(404).json({
-                "message": "User not found"
-            });
+            return res.render('../views/user/login.ejs',{token:null,message: "User not found" });
         }
         
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(400).json({
-                "message": "Wrong Password"
-            });
+            return res.render('../views/user/login.ejs',{token:null,message: "Wrong Password" });
         }
         const token = jwt.sign(
             { userId: user._id, email: user.email },  
@@ -190,18 +186,16 @@ export const login = async (req, res) => {
         res.redirect("/")
     } catch (error) {
         console.error(error);
-        return res.status(500).json({
-            "message": "Internal Server Error"
-        });
+        return res.render('../views/user/login.ejs',{token:null,message: "Internal Server Error" });
     }
 };
 
 export const logout = (req,res)=>{
     try {
         res.clearCookie('token'); 
-        res.render("../views/user/login.ejs",{token:null});
+        res.render("../views/user/login.ejs",{token:null,message:null});
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.render('../views/user/login.ejs',{token:null,message: "Internal Server Error" });
     }
 }
