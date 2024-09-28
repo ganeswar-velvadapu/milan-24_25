@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
     required:true
   },
   company:{
-    type:String
+    type:String,
+    default:null
   },
   conversations: [
     { type: mongoose.Schema.Types.ObjectId,

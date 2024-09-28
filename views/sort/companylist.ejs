@@ -32,16 +32,18 @@
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
     <%- include('../partials/navbar.ejs', { token: token }) %>
-
     <div class="container d-flex justify-content-center align-items-center flex-grow-1">
         <div class="card shadow-lg p-4" style="max-width: 500px;">
             <div class="card-body">
                 <h1 class="card-title text-center mb-4">Select a Company</h1>
-                <ul class="list-group">
+                <ul class="list-group"> 
                     <% companies.forEach(company => { %>
-                        <li class="list-group-item">
-                            <a href="/api/sort/placements/companies/<%= company  %>"><%= company %></a>
-                        </li>
+                        <% if(company==null){ %>
+                            <% }else{ %>
+                                <li class="list-group-item">
+                                    <a href="/api/sort/placements/companies/<%= company  %>"><%= company %></a>
+                                </li>
+                                <% } %>
                     <% }) %>
                 </ul>
             </div>

@@ -90,7 +90,7 @@ export const signup = async (req, res) => {
     let { email } = req.body;
 
     if (!email) {
-      return res.render("../views/user/login.ejs", {
+      return res.render("../views/user/signup.ejs", {
         token: null,
         message: "Enter all details",
       });
@@ -115,6 +115,13 @@ export const signup = async (req, res) => {
     otpStore[email] = { otp, createdAt: Date.now() };
 
     const token = req.cookies.token;
+    const newToken = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("newToken", newToken, {
+      httpOnly: true,
+    });
     await sendOtp(email, otp);
     res.render("../views/user/otp.ejs", { token, message: null });
   } catch (error) {
@@ -176,8 +183,11 @@ export const verifyOtpAndSaveUser = async (req, res) => {
 };
 
 export const verifyOtp = (req, res) => {
-  const { clientOtp, email } = req.body;
+  const { clientOtp } = req.body;
   const token = req.cookies.token;
+  const newToken = req.cookies.newToken
+  const decoded = jwt.verify(newToken, process.env.JWT_SECRET);
+  const email = decoded.email;
   try {
     const otpData = otpStore[email];
     if (!otpData) {
@@ -205,13 +215,7 @@ export const verifyOtp = (req, res) => {
       });
     }
 
-    const newToken = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    res.cookie("newToken", newToken, {
-      httpOnly: true,
-    });
+    
     res.render("../views/user/afterotp.ejs", { token, message: null,hostels,branches,year,companies });
     // return res.status(200).json({ "message": "OTP verified", token });
   } catch (error) {
