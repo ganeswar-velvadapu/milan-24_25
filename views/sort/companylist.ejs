@@ -38,7 +38,7 @@
                 <h1 class="card-title text-center mb-4">Select a Company</h1>
                 <ul class="list-group"> 
                     <% companies.forEach(company => { %>
-                        <% if(company==null){ %>
+                        <% if(company==null || company==""){ %>
                             <% }else{ %>
                                 <li class="list-group-item">
                                     <a href="/api/sort/placements/companies/<%= company  %>"><%= company %></a>
