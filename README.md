@@ -1,6 +1,6 @@
-# NETWORK App - IITH
+# CampusNet App - IITH
 
-Welcome to the **NETWORK** App! This application is tailored for students of IIT Hyderabad, allowing them to connect with peers, sort students by degree, branch, batch, and hostel, and engage in direct messaging.
+Welcome to the **CampusNet** App! This application is tailored for students of IIT Hyderabad, allowing them to connect with peers, sort students by degree, branch, batch, and hostel, and engage in direct messaging.
 
 ## Features
 
