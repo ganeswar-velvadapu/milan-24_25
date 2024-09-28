@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
   company:{
     type:String
   },
+  clubs:{
+    type:[String],
+    default:[]
+  },
   conversations: [
     { type: mongoose.Schema.Types.ObjectId,
        ref: 'Conversation' 

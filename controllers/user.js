@@ -76,6 +76,29 @@ const companies =  [
   'Zomato'
 ]
 
+
+const clubs = [
+  'E-Cell',
+  'TEDx',
+  'Elan and nVision',
+  'FCC',
+  'Milan',
+  'IR-Cell',
+  'Sunshine',
+  'Shuffle-crew',
+  'Aero',
+  'Cephid',
+  'Elektronica',
+  'Epoch',
+  'Infero',
+  'Kludge',
+  'Lambda',
+  'Prakriti',
+  'Robotix',
+  'Torque',
+  'Glitch'
+]
+
 function validateEmail(email) {
   return email.endsWith(validDomain);
 }
@@ -124,7 +147,7 @@ export const signup = async (req, res) => {
 };
 
 export const verifyOtpAndSaveUser = async (req, res) => {
-  const { username, password, degree, hostel, year, branch,company } =
+  const { username, password, degree, hostel, year, branch,company,clubs } =
     req.body;
   const newToken = req.cookies.newToken;
   try {
@@ -148,6 +171,7 @@ export const verifyOtpAndSaveUser = async (req, res) => {
       hostel,
       year,
       branch,
+      clubs,
       company: company.toString(),
     });
 
@@ -209,7 +233,7 @@ export const verifyOtp = (req, res) => {
     res.cookie("newToken", newToken, {
       httpOnly: true,
     });
-    res.render("../views/user/afterotp.ejs", { token, message: null,hostels,branches,year,companies });
+    res.render("../views/user/afterotp.ejs", { token, message: null,hostels,branches,year,companies,clubs });
     // return res.status(200).json({ "message": "OTP verified", token });
   } catch (error) {
     console.error(error);

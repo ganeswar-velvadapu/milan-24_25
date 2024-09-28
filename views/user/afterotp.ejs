@@ -8,7 +8,7 @@
     <style>
       body{
         background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
-        background-repeat: no-repeat; /* Prevent background repetition */
+        background-repeat: no-repeat; 
         background-attachment: fixed;
     }
     </style>
@@ -35,7 +35,7 @@
               <div class="mb-3">
                 <label for="hostel" class="form-label">Hostel</label>
                 <select class="form-select" id="hostel" name="hostel">
-                  <option value="">Select your hostel</option>
+                  <option value="" disabled>Select your hostel</option>
                   <% hostels.forEach(function(hostel) { %>
                     <option value="<%= hostel %>"><%= hostel %></option>
                   <% }) %>
@@ -44,7 +44,7 @@
               <div class="mb-3">
                 <label for="year" class="form-label">Year</label>
                 <select class="form-select" id="year" name="year">
-                  <option value="">Select Batch</option>
+                  <option value="" disabled>Select Batch</option>
                   <% year.forEach(function(year) { %>
                     <option value="<%= year %>"><%= year %></option>
                   <% }) %>
@@ -61,7 +61,7 @@
               <div class="mb-3">
                 <label for="department" class="form-label">Department</label>
                 <select class="form-select" id="department" name="branch">
-                  <option value="">Select your Department</option>
+                  <option value="" disabled>Select your Department</option>
                   <% branches.forEach(function(branch) { %>
                     <option value="<%= branch %>"><%= branch %></option>
                   <% }) %>
@@ -70,12 +70,25 @@
               <div class="mb-3">
                 <label for="company" class="form-label">Company you placed In(Optional)</label>
                 <select class="form-select" id="company" name="company">
-                  <option value="">Select Company</option>
+                  <option value="" >Select Company</option>
                   <% companies.forEach(function(company) { %>
                     <option value="<%= company %>"><%= company %></option>
                   <% }) %>
                 </select>
               </div>
+              <div class="mb-3">
+                <label for="club" class="form-label">Select club(s) you are part of</label>
+                <select class="form-select" id="club-select">
+                  <option value=""selected>Select Club</option>
+                  <% clubs.forEach(function(club) { %>
+                    <option value="<%= club %>"><%= club %></option>
+                  <% }) %>
+                </select>
+                <button type="button" id="add-club" class="btn btn-primary mt-2">Add Club</button>
+              </div>
+              <div class="selected-clubs" id="selected-clubs">
+              </div>
+              <input type="hidden" name="clubs" id="clubs-input">
               <button type="submit" class="btn btn-primary w-100">Submit</button>
             </form>
           </div>
@@ -83,7 +96,42 @@
       </div>
     </div>
   </div>
+  <script>
+      const clubSelect = document.getElementById('club-select');
+      const addClubBtn = document.getElementById('add-club');
+      const selectedClubsContainer = document.getElementById('selected-clubs');
+      const clubsInput = document.getElementById('clubs-input');
+    
+      let selectedClubs = [];
+    
+      addClubBtn.addEventListener('click', function () {
+        const selectedClub = clubSelect.value;
+    
+        if (selectedClub && !selectedClubs.includes(selectedClub)) {
+
+          selectedClubs.push(selectedClub);
+    
+          const clubDiv = document.createElement('div');
+          clubDiv.className = 'selected-club';
+          clubDiv.innerHTML = `${selectedClub} <span class="remove-club" data-club="${selectedClub}">&times;</span>`;
+          selectedClubsContainer.appendChild(clubDiv);
+          clubsInput.value = JSON.stringify(selectedClubs);
+        }
+      });
+    
+      selectedClubsContainer.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-club')) {
+          const clubToRemove = e.target.getAttribute('data-club');
+
+          selectedClubs = selectedClubs.filter(club => club !== clubToRemove);
+    
+          e.target.parentElement.remove();
   
+          clubsInput.value = JSON.stringify(selectedClubs);
+        }
+      });
+    
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import main from "./utils/db.js"
 import authRoutes from './routes/user.js'
 import sortRoutes from './routes/sort.js'
 import chatRoutes from './routes/message.js'
+import profileRoutes from './routes/profile.js'
 import http from 'http'
 import {Server} from 'socket.io'
 import socketHandler from "./controllers/chat.js"
@@ -29,6 +30,7 @@ app.use(urlencoded({extended:true}))
 app.use('/api/auth', authRoutes); 
 app.use('/api/sort',sortRoutes)
 app.use("/api/chat",chatRoutes)
+app.use("/api/profile",profileRoutes)
 app.get("/",checkToken,(req,res)=>{
     const token = req.cookies.token
     res.render("../views/home.ejs",{token,message:null})

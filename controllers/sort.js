@@ -75,3 +75,34 @@ export const studentsByCompany = async (req,res)=>{
         console.log(error)
     }
 }
+
+export const sortByClub = async (req, res) => {
+    const token = req.cookies.token
+    try {
+      const clubs = await User.aggregate([
+        { $unwind: "$clubs" }, 
+        { $group: { _id: "$clubs" } }, 
+        { $sort: { _id: 1 } } 
+      ]);
+      const uniqueClubs = clubs.map(club => club._id);
+      const parsedClubs = uniqueClubs.length === 1 && Array.isArray(JSON.parse(uniqueClubs[0])) 
+      ? JSON.parse(uniqueClubs[0]) 
+      : uniqueClubs;
+      res.render("../views/sort/clubList.ejs", { clubs: parsedClubs , token: token });
+    } catch (error) {
+      console.error("Error fetching clubs:", error);
+      res.status(500).send("An error occurred while fetching clubs.");
+    }
+  };
+
+export const studentsByClub =async (req,res)=>{
+    const token = req.cookies.token
+    try {
+        const {club} = req.params
+        const currentUserId = req.user.id;
+        const students = await User.find({ club: club,_id: { $ne: currentUserId } }).sort({ name: 1 });
+        res.render("../views/sort/studentsByClub.ejs",{students,token,club})
+    } catch (error) {
+        console.log(error)
+    }
+}
