@@ -76,12 +76,25 @@
         padding: 0 20px;
         height: 60px; 
       }
+      body{
+        background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+        background-repeat: no-repeat; 
+        background-attachment: fixed;
+    }
     </style>
     
   </head>
 
   <body>
     <%- include('../partials/navbar.ejs') %>
+    <div class="container mt-5">
+      <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading">Important Notice!</h4>
+          <p>
+              Please refrain from sending any abusive messages while using your anonymous username. 
+              Remember, your IIT Hyderabad email ID is publicly available, and any inappropriate behavior may result in disciplinary action.
+          </p>
+      </div>
     <div class="container mt-4">
       <h1>Chat with <%= recipient.username %></h1>
       <div id="chat-box" class="border rounded p-3 mb-3 d-flex flex-column">
