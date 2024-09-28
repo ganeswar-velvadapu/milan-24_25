@@ -1,4 +1,4 @@
-# NETWOTK App - IITH
+# NETWORK App - IITH
 
 Welcome to the **NETWORK** App! This application is tailored for students of IIT Hyderabad, allowing them to connect with peers, sort students by degree, branch, batch, and hostel, and engage in direct messaging.
 
