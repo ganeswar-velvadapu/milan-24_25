@@ -76,19 +76,7 @@
                   <% }) %>
                 </select>
               </div>
-              <div class="mb-3">
-                <label for="club" class="form-label">Select club(s) you are part of</label>
-                <select class="form-select" id="club-select">
-                  <option value=""selected>Select Club</option>
-                  <% clubs.forEach(function(club) { %>
-                    <option value="<%= club %>"><%= club %></option>
-                  <% }) %>
-                </select>
-                <button type="button" id="add-club" class="btn btn-primary mt-2">Add Club</button>
-              </div>
-              <div class="selected-clubs" id="selected-clubs">
-              </div>
-              <input type="hidden" name="clubs" id="clubs-input">
+             
               <button type="submit" class="btn btn-primary w-100">Submit</button>
             </form>
           </div>
@@ -96,42 +84,7 @@
       </div>
     </div>
   </div>
-  <script>
-      const clubSelect = document.getElementById('club-select');
-      const addClubBtn = document.getElementById('add-club');
-      const selectedClubsContainer = document.getElementById('selected-clubs');
-      const clubsInput = document.getElementById('clubs-input');
-    
-      let selectedClubs = [];
-    
-      addClubBtn.addEventListener('click', function () {
-        const selectedClub = clubSelect.value;
-    
-        if (selectedClub && !selectedClubs.includes(selectedClub)) {
 
-          selectedClubs.push(selectedClub);
-    
-          const clubDiv = document.createElement('div');
-          clubDiv.className = 'selected-club';
-          clubDiv.innerHTML = `${selectedClub} <span class="remove-club" data-club="${selectedClub}">&times;</span>`;
-          selectedClubsContainer.appendChild(clubDiv);
-          clubsInput.value = JSON.stringify(selectedClubs);
-        }
-      });
-    
-      selectedClubsContainer.addEventListener('click', function (e) {
-        if (e.target.classList.contains('remove-club')) {
-          const clubToRemove = e.target.getAttribute('data-club');
-
-          selectedClubs = selectedClubs.filter(club => club !== clubToRemove);
-    
-          e.target.parentElement.remove();
-  
-          clubsInput.value = JSON.stringify(selectedClubs);
-        }
-      });
-    
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

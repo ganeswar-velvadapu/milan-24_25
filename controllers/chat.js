@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import Message from "../models/message.js";
 import User from "../models/user.js";
+import Conversation from '../models/conversation.js';
 
 export default function socketHandler(io) {
     io.on('connection', (socket) => {
@@ -26,9 +27,10 @@ export default function socketHandler(io) {
             socket.on('sendMessage', async ({ conversationId, content }) => {
                 const message = new Message({ conversation: conversationId, sender: userId, content });
                 await message.save();
-
+                const conversation = await Conversation.findById(conversationId);
                 const user = await User.findById(userId);
-
+                user.conversations.push(conversationId);
+                await user.save()
                 io.to(conversationId).emit('receiveMessage', {
                     sender: user.username, 
                     content,

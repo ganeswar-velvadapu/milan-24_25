@@ -13,20 +13,25 @@ export const getChatPage = async (req, res) => {
         conversation = new Conversation({ participants: [currentUserId, userId] });
         await conversation.save();
     }
-
-    const recipient = await User.findById(userId);
-
-    const messages = await Message.find({ conversation: conversation._id })
-        .populate('sender', 'username')
-        .sort({ createdAt: 1 });
-        
-    const token = req.cookies.token
+    const recipientUser = await User.findById(userId);
+    if (!recipientUser) {
+        return res.status(404).send("Recipient user not found.");
+    }
+    let messages = [];
+    if (conversation) {
+        messages = await Message.find({ conversation: conversation._id })
+            .populate('sender', 'username')
+            .sort({ createdAt: 1 });
+    }
+    
+    const token = req.cookies.token;
     res.render('../views/chat/chat.ejs', { 
         conversation, 
         currentUser: req.user, 
-        recipient, 
+        recipient: recipientUser, 
         messages,
         token,
-        message:null
+        message: null
     });
 };
+

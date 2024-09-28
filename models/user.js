@@ -15,9 +15,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bio: {
-    type: String,
-  },
   degree:{
     type:String,
     required:true
@@ -36,10 +33,6 @@ const userSchema = new mongoose.Schema({
   },
   company:{
     type:String
-  },
-  clubs:{
-    type:[String],
-    default:[]
   },
   conversations: [
     { type: mongoose.Schema.Types.ObjectId,

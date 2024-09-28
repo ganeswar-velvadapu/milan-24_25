@@ -24,22 +24,9 @@
       <div class="text-center">
         <h1 class="mt-3"><%= user.username %></h1>
         <p class="lead"><strong>Email:</strong> <%= user.email %></p>
-        <% if(user.bio){ %>
-            <p class="lead"><strong>Bio:</strong> <%= user.bio %></p>
-            <% }else{ %>
-                <p class="lead"><strong>Bio:</strong> No Bio</p>
-                <% } %>
         <p class="lead"><strong>Department:</strong> <%= user.branch %></p>
         <p class="lead"><strong>Hostel:</strong> <%= user.hostel %></p>
         <p><strong>Year:</strong> <%= user.year %></p>
-      </div>
-      <div class="text-center">
-        <h2>Clubs</h2>
-            <ul class="list-group">
-                <% parsedClubs.forEach(function(club) { %>
-                    <li class="list-group-item"><%= club %></li>
-                <% }) %>
-            </ul>
       </div>
 
       <div class="mt-4 text-center">

@@ -10,6 +10,7 @@ import http from 'http'
 import {Server} from 'socket.io'
 import socketHandler from "./controllers/chat.js"
 import checkToken from "./middlewares/checkToken.js"
+import { homeCoversations } from "./controllers/home.js"
 
 
 dotenv.config()
@@ -31,10 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/sort',sortRoutes)
 app.use("/api/chat",chatRoutes)
 app.use("/api/profile",profileRoutes)
-app.get("/",checkToken,(req,res)=>{
-    const token = req.cookies.token
-    res.render("../views/home.ejs",{token,message:null})
-})
+app.get("/",checkToken,homeCoversations)
 
 socketHandler(io)
 
