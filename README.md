@@ -69,4 +69,9 @@ npm start
 - To log out, navigate to the logout option in the navigation bar or menu.
 - Confirm logout to end your session and return to the login page.
 
+### **Authors**
+
+- Ganeswar Velvadapu
+- Krishna Teja Pulipati
+- Shiva Sai Pagilla
 
