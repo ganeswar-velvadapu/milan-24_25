@@ -1,6 +1,6 @@
-# IIT Hyderabad Social Media App
+# NETWOTK App - IITH
 
-Welcome to the IIT Hyderabad Social Media App! This application is tailored for students of IIT Hyderabad, allowing them to connect with peers, sort students by degree, branch, batch, and hostel, and engage in direct messaging.
+Welcome to the **NETWORK** App! This application is tailored for students of IIT Hyderabad, allowing them to connect with peers, sort students by degree, branch, batch, and hostel, and engage in direct messaging.
 
 ## Features
 
@@ -10,6 +10,7 @@ Welcome to the IIT Hyderabad Social Media App! This application is tailored for 
   - **Branch**: Sort students by their branch of study.
   - **Batch**: Further refine by batch within the selected branch.
 - **Hostel Sorting**: Filter students based on their hostel.
+- **Placement Sorting** : Filter students based on their placement status.
 - **Direct Messaging**: Engage in real-time chat with peers.
 
 ## Technologies Used
@@ -23,8 +24,7 @@ Welcome to the IIT Hyderabad Social Media App! This application is tailored for 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/iit-hyderabad-social-media-app.git
-cd iit-hyderabad-social-media-app
+git clone https://github.com/ganeswar-velvadapu/milan-24_25.git
 ```
 ### Install Dependencies
 ```bash
@@ -53,11 +53,13 @@ npm start
   - Within the selected branch, filter students by batch to view the specific students.
 - **By Hostel**:
   - Alternatively, select a hostel to see students from that specific hostel.
+- **By Placement**:
+  - Alternatively, select a company to see students who got placed in that specific company.
 
 ### 3. **View and Chat with Peers**
 
 - **View Students**:
-  - Browse the list of students based on the selected filters (degree, branch, batch, or hostel).
+  - Browse the list of students based on the selected filters (degree, branch, batch, hostel or placement).
 - **Chat**:
   - Click on a student's profile or name to start a chat.
   - Use the chat interface to send and receive messages in real-time. The chat feature utilizes Socket.io for instant communication.
