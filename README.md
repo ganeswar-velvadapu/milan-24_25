@@ -18,7 +18,7 @@ Welcome to the **CampusNet** App! This application is tailored for students of I
 - **Backend**: Node.js
 - **Frontend**: EJS (Embedded JavaScript templates)
 - **Real-Time Messaging**: Socket.io
-- **Database**: MongoDB (assumed for this example; adjust based on actual usage)
+- **Database**: MongoDB 
 
 ## Installation
 ### 1. Clone the Repository
